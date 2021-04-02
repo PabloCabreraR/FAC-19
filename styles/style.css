@@ -1,0 +1,87 @@
+
+body {
+    cursor: url('/images/syringe80x80.png'), url('/images/syringe32x32.png'), auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Orbitron', sans-serif;
+    color: #007596;
+    background-color: #d1d1d1;   
+}
+
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2vh;
+    font-weight: bold;
+    font-size: 4rem;
+}
+.subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+    margin-bottom: 4vh;
+}
+
+.subtitle h3 span {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.subtitle img {
+    height: 5vh;
+
+}
+
+#background-lab {
+    background-image: url('/images/Lab.gif');
+    background-size: cover;
+    height: 70vh;
+    width: 100vw;
+    position: absolute;
+    z-index: -1;
+    margin-top: 15vh;
+}
+
+#lifes-score {
+    display: flex;
+    justify-content: space-around;
+}
+#lifes-score div{
+    border: 8px solid #003949;
+    background-color: rgba(30, 243, 255,0.40);
+    width: 500px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1vh;
+    text-align: center;
+}
+
+#lifes img {
+    max-height: 30px;
+    max-width: 30px;
+    padding-bottom: 5px;
+}
+
+canvas {
+    border: 8px solid black;
+}
+
+#buttons {
+    width: 1000px;
+    display: flex;
+    justify-content: space-evenly;
+}
+#buttons button {
+    margin-top: 1vh;
+    border: 2px solid rgb(0, 71, 75);
+    font-size: 1.2rem;
+    cursor: url('/images/syringe80x80.png'), url('/images/syringe32x32.png'), auto;
+}
+
+#done-by{
+    margin-top: 3vh;
+ } 
