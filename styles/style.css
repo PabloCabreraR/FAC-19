@@ -31,11 +31,7 @@ h1 {
     margin: 15px;
     margin-bottom: 4vh;
     font-size: 0.8rem;
-}
-
-.subtitle h3 span {
-    margin-left: 10px;
-    margin-right: 10px;
+    word-spacing: 1.5vw;
 }
 
 .subtitle img {
