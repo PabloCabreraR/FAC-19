@@ -4,7 +4,7 @@
 }
 
 body {
-    cursor: url('/images/syringe80x80.png'), url('/images/syringe32x32.png'), auto;
+    cursor: url('/images/syringeRED.png'), url('/images/syringeRED32x32.png'), auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,10 +64,14 @@ h1 {
     text-align: center;
 }
 
+#score {
+    letter-spacing: 0.2vw;
+}
+
 #lifes img {
-    max-height: 30px;
-    max-width: 30px;
-    padding-bottom: 5px;
+    max-height: 50px;
+    max-width: 50px;
+    padding-bottom: 1vh;
 }
 
 canvas {
@@ -83,7 +87,7 @@ canvas {
     margin-top: 1vh;
     border: 3px solid rgb(0, 71, 75);
     font-size: 1.2rem;
-    cursor: url('/images/syringe80x80.png'), url('/images/syringe32x32.png'), auto;
+    cursor: url('/images/syringeRED.png'), url('/images/syringeRED32x32.png'), auto;
     padding-bottom: 1vh;
 }
 
@@ -98,4 +102,24 @@ canvas {
 
  .display-none {
      display: none;
+ }
+
+ .on-top-screen {
+     z-index: 2;
+     margin-top: 15.5vh;
+     background-color: #9e9e9ec5;
+     height: 53.5vh;
+     position: absolute;
+     width: 52.2vw;
+ }
+
+ .on-top-screen p {
+     width: 50vw;
+     text-align: center;
+     font-size: 1.3rem;
+     font-weight: bold;
+     word-spacing: 0.6vw;
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 4vh;
  }

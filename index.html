@@ -16,11 +16,11 @@
     <header>
         <h1 id="title">F.A.C-19</h1>
         <div class="subtitle">
-            <img src="/images/Virus2.png" alt="Virus image">
+            <img src="/images/greenVIRUS.png" alt="Virus image">
 
             <h3><b>F</b>ight <b>A</b>gainst <b>C</b>ovid<b>-19</b></h3>
 
-            <img src="/images/syringe.png" alt="Vaccine image">
+            <img src="/images/syringeRED80x80.png" alt="Vaccine image">
         </div>  
     </header>
 
@@ -42,10 +42,31 @@
 
     <canvas id="canvas" width="1000" height="500"></canvas>
 
+    <div id="Intro" class="on-top-screen">
+        <p>Thanks to the large pharmaceutical companies we now have the vaccine against covid and we've managed to concentrate the infected.</p>
+        <p>You must eradicate the virus before it mutates and spreads again ...</p>
+        <p>What do you think? Will you be able to do it?</p>  
+    </div>
+
+    <div id="instructions" class="on-top-screen display-none" >
+        <p>
+            <b>Left click</b> on the viruses before they escape to kill them with the vaccine. 
+        </p>
+        <p>
+            But be careful, things will get more difficult ...
+        </p>
+        <p>
+            Press <i>NEW GAME</i> below to start playing F.A.C-19
+        </p>
+    </div>
+
+    <div id="game-over" class="on-top-screen display-none"></div>
+    <div id="victory" class="on-top-screen display-none"></div>
+
     <div id="buttons">
         <button type="button" class="btn btn-info">Instructions</button>
         <button id="new-game" type="button" class="btn btn-info">NEW GAME</button>
-        <button id="sound" type="button" class="btn btn-info">Sound On/Off <img class="display-noneM"src="/images/speaker20x20.png" alt="speaker"><img class="display-none" src="/images/speakerOFF20x20.png" alt="speaker"></button>
+        <button id="sound" type="button" class="btn btn-info">Sound On/Off <img id="soundON" src="/images/speaker20x20.png" alt="speaker"><img id="soundOFF" class="display-none" src="/images/speakerOFF20x20.png" alt="speaker"></button>
     </div>
 
     <footer id="done-by">by Pablo Cabrera © 2021</footer>
