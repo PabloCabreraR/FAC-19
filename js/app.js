@@ -8,7 +8,6 @@ window.onload = () => {
             this.size = Math.floor(Math.random()*(90)) + 50
             this.x = Math.floor(Math.random()*(ctx.canvas.width - this.size))
             this.y = Math.floor(Math.random()*(ctx.canvas.height - this.size))
-
         }
 
         renderViruses(){
@@ -20,9 +19,9 @@ window.onload = () => {
 
         drawSelf(){
             ctx.drawImage(this.virusImg, this.x, this.y, this.size, this.size)
-            return true
         }
     }
+
     // VARIABLES DELCARED
     const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d')
@@ -33,19 +32,29 @@ window.onload = () => {
     const soundON = document.querySelector('#soundON')
     const soundOFF = document.querySelector('#soundOFF')
 
+    const lifesIMGs = document.querySelectorAll('#lifes img')
+    const lifesArray = [...lifesIMGs]
+
     ctx.fillStyle = 'rgba(30, 243, 255, 0.40)' // COLOR OF BACKGROUND OF CANVAS
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height) // DRAW BACKGROUND
 
     let gameOver = false // GAME OVER CHECK VARIABLE
+    let lifes = 5
  
     let backgroundAudio // INITIALIZE BACKGROUND AUDIO
     let splashAudio // INITIALIZE SPLASH AUDIO
+
     let score = 0 // SCORE VARIABLE FOR DISPLAY AND COUNT
-    let lvl = 144
+    let counterOfVirusOnScreen = 0  
+    let cooldownForLifeOff = 200
 
     const arrayOfVirus = []
 
-    // NEW GAME BUTTON AND FUNCTION
+    let virusCreationCounter = 0
+    let difficulty = 0
+
+
+    // NEW GAME BUTTON
     let newGameButton = document.querySelector('#new-game')
     newGameButton.onclick = () => {
         startGame()
@@ -53,11 +62,12 @@ window.onload = () => {
         instructionsButton.disabled = true
     }
 
+    // START GAME FUNCTION
     const startGame = () => {
         intro.classList.add('display-none')
+        instructionsDiv.classList.add("display-none")
         loadAudios()
-        backgroundAudio.play()
-        splashAudio.play()        
+        backgroundAudio.play()       
         updateCanvas()
     }
 
@@ -67,10 +77,9 @@ window.onload = () => {
         backgroundAudio.loop
         backgroundAudio.volume = 0.1
 
-        splashAudio = new Audio('/sounds/virusDead.mp3')
+        splashAudio = new Audio('/sounds/virusDeath.mp3')
         splashAudio.volume = 0.1
     }
-
 
     // CLEAR WHOLE CANVAS
     const clearCanvas = () => {
@@ -82,23 +91,23 @@ window.onload = () => {
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     }
 
-    // VIRUS CREATION AND DRAWING
-    let virusCreationCounter = 0
-    let difficulty = 0
-
+    // VIRUS CREATION
     const createVirus = () => {
         virusCreationCounter ++
         if (virusCreationCounter === 180){
             const virus = new Virus()
             virus.renderViruses()
             arrayOfVirus.push(virus)
+            counterOfVirusOnScreen++
             virusCreationCounter = difficulty
         }
     }
 
+    // VIRUS DRAWING ON SCREEN
     const drawVirus = () =>{
         arrayOfVirus.forEach((virus)=>{
             virus.drawSelf()
+            
         })
     }
 
@@ -107,18 +116,32 @@ window.onload = () => {
         let canvasX = event.pageX - canvasLeft
         let canvasY = event.pageY - canvasTop
 
-        console.log('click screen')
         arrayOfVirus.forEach((virus, index)=>{
             let virusYandHeight = virus.y + virus.size
             let virusXandWidth = virus.x + virus.size
             // CHECK FOR VIRUS ON POSITION CLICKED
             if (canvasY > virus.y && canvasY < virusYandHeight && canvasX > virus.x && canvasX < virusXandWidth){
                 arrayOfVirus.splice(index, 1)
+                // virus.virusImg = !!!!!!!!!!!!!!!!!!!!!!!!!******************************************************************************
                 splashAudio.play()
                 score++
+                counterOfVirusOnScreen--
             }
         })
     }
+
+    // CHECK NUMBER OF VIRUS ON SCREEN TO LOOSE LIFES
+    const checkNumberOfVirusOnScreen = () => {
+        cooldownForLifeOff++
+        if (cooldownForLifeOff >= 200){
+            if (counterOfVirusOnScreen >= 5){
+            lifesArray[(lifes-1)].className = 'display-none'
+            lifes--
+            cooldownForLifeOff = 0
+            }
+        }
+    }
+
     // TRANSFORM SCORE INTO 3 DIGITS FOR DISPLAY
     const threeDigitsScore = (score) => {
         if(score < 10){
@@ -135,6 +158,37 @@ window.onload = () => {
         const scoreSpan = document.querySelector('#score')
         scoreSpan.innerText = threeDigitsScore(score)
     }
+
+    // CHECK SCORE FOR LVL UP
+    const checkScoreLevelUp = () => {
+        if (score >= 170){
+            difficulty = 170
+        }else if (score >= 140){
+            difficulty = 140
+            console.log('lvl up. LVL MAX')
+        }else if (score >= 110){
+            difficulty = 110
+            console.log('lvl up. LVL 4')
+        }else if (score >= 90){
+            difficulty = 90
+            console.log('lvl up. LVL 3')
+        }else if (score >=60){
+            difficulty = 60
+            console.log('lvl up. LVL 2')
+        }else if (score >= 30){
+            difficulty = 30
+            console.log('lvl up. LVL 1')
+        }else{
+            difficulty = 0
+        }
+    }
+
+    // CHECK NUMBER OF LIFES TO CHECK GAME OVER
+    const checkLifes = () => {
+        if (lifes = 0){
+            gameOver = true
+        }
+    }
     
     // GAME LOOP
     const updateCanvas = () => {
@@ -143,13 +197,18 @@ window.onload = () => {
             drawBackground()
             createVirus()
             drawVirus()
+            checkNumberOfVirusOnScreen()
             renderScore()
+            checkScoreLevelUp()
+            checkLifes()
+        }else{
+            console.log('GAME OVER')
         }
         requestAnimationFrame(updateCanvas)
     }
 
-    // SOUND BUTTON
-    let soundButton = document.querySelector('#sound')
+    // SOUND BUTTON EVENT LISTENER
+    const soundButton = document.querySelector('#sound')
     soundButton.addEventListener('click', ()=>{
         soundButton.classList.toggle('muted')
         if (!soundButton.classList.contains('muted')){
@@ -166,23 +225,19 @@ window.onload = () => {
         }
     })
 
-    let instructionsButton = document.querySelector('#instructions')
-    instructionsButton.addEventListener('click', ()=> {
-        instructionsButton.classList.toggle('display-none')
-        if (!instructionsButton.classList.contains('display-none')){
-            instructionsButton.classList.add('display-none')
-            gameOverScreen.classList.add("display-none")
-            victoryScreen.classList.add("display-none")
-            intro.classList.remove('display-none')
-        }else{
-            instructionsButton.classList.remove("display-none")
-            // victoryScreen.classList.add("display-none")
+    // INSTRUCTIONS BUTTON EVENT LISTENER   
+    const instructionsButton = document.querySelector('#instructions-button')
+    const instructionsDiv = document.querySelector('#instructions-div')
+    instructionsButton.onclick = ()=>{
+        instructionsDiv.classList.toggle('display-none')
+        if (!instructionsDiv.classList.contains('display-none')){
+            instructionsDiv.classList.remove('display-none')
             intro.classList.add('display-none')
+        }else{
+            instructionsDiv.classList.add("display-none")
+            intro.classList.remove('display-none')
         }
-    })
-    
-
-
-}    
+    }
+}
 
 
