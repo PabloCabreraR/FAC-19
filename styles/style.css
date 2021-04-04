@@ -30,7 +30,7 @@ h1 {
     justify-content: center;
     margin: 15px;
     margin-bottom: 4vh;
-    font-size: 0.8rem;
+    font-size: 0.5rem;
     word-spacing: 1.5vw;
 }
 
@@ -59,7 +59,8 @@ h1 {
     width: 500px;
     font-size: 1.6rem;
     font-weight: bold;
-    padding-top: 3px;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
     margin-bottom: 1vh;
     text-align: center;
 }
@@ -69,13 +70,21 @@ h1 {
 }
 
 #lifes img {
-    max-height: 50px;
-    max-width: 50px;
-    padding-bottom: 1vh;
+    max-height: 6vh;
+    max-width: 6vw;
+    padding-bottom: 0.5vh;
 }
 
 canvas {
     border: 8px solid black;
+}
+
+#game-over button {
+    margin: 2vh 43vw 2vh 43vw;
+    border: 3px solid rgb(0, 71, 75);
+    font-size: 1.2rem;
+    cursor: url('/images/syringeRED.png'), url('/images/syringeRED32x32.png'), auto;
+    padding-bottom: 1.5vh;
 }
 
 #buttons {
@@ -83,6 +92,7 @@ canvas {
     display: flex;
     justify-content: space-evenly;
 }
+
 #buttons button {
     margin-top: 1vh;
     border: 3px solid rgb(0, 71, 75);
@@ -97,6 +107,7 @@ canvas {
 
 #done-by{
     margin-top: 2vh;
+    font-weight: bold;
  } 
 
 
@@ -113,7 +124,18 @@ canvas {
      width: 52.2vw;
  }
 
- .on-top-screen p {
+ .on-top-screen-black {
+    z-index: 2;
+    margin-top: 16vh;
+    background-color: #000000;
+    color: white;
+    height: 55vh;
+    position: absolute;
+    width: 100vw;
+ }
+
+ .on-top-screen p ,
+ .on-top-screen-black p{
      width: 50vw;
      text-align: center;
      font-size: 1.3rem;
@@ -122,4 +144,11 @@ canvas {
      margin-left: auto;
      margin-right: auto;
      margin-top: 4vh;
+ }
+
+ .on-top-screen-black h3{
+     text-align: center;
+     font-size: 3.5rem;
+     margin-top: 2vh;
+     margin-bottom: 2vh;
  }

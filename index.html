@@ -13,22 +13,26 @@
 </head>
 <body>
     
+    <!-- TITLE AND SUBTITLE -->
     <header>
         <h1 id="title">F.A.C-19</h1>
         <div class="subtitle">
             <img src="/images/greenVIRUS.png" alt="Virus image">
 
-            <h3><b>F</b>ight <b>A</b>gainst <b>C</b>ovid<b>-19</b></h3>
+            <h2><b>F</b>ight <b>A</b>gainst <b>C</b>ovid<b>-19</b></h2>
 
             <img src="/images/syringeRED80x80.png" alt="Vaccine image">
         </div>  
     </header>
 
+
     <div id="background-lab"></div>
     
+    <!-- LIFES AND SCORE DISPLAY -->
     <div id="lifes-score">
         <div id="lifes">
             <span>VACCINES : </span>
+            <img id="skull" src="/images/skullPIXEL.png" alt="Skull pixelart" class="display-none">
             <img src="/images/syringeLIFE.png" alt="Red syringe">
             <img src="/images/syringeLIFE.png" alt="Red syringe">
             <img src="/images/syringeLIFE.png" alt="Red syringe">
@@ -40,17 +44,19 @@
         </div>
     </div>
 
+    <!-- CANVAS -->
     <canvas id="canvas" width="1000" height="500"></canvas>
 
+    <!-- HIDDEN DIVS -->
     <div id="Intro" class="on-top-screen">
         <p>Thanks to the large pharmaceutical companies we now have the vaccine against covid and we've managed to concentrate the infected.</p>
-        <p>You must eradicate the virus before it mutates and spreads again ...</p>
+        <p>You must eradicate the virus before it clumps, mutates and spreads again ...</p>
         <p>What do you think? Will you be able to do it?</p>  
     </div>
 
     <div id="instructions-div" class="on-top-screen display-none" >
         <p>
-            <b>Left click</b> on the viruses before they escape to kill them with the vaccine. 
+            <b>Left click</b> on the viruses to kill them before they clump together and spread again. 
         </p>
         <p><img src="/images/LeftClickMousePixel.png" alt="Left Click mouse"></p>
         <p>
@@ -61,21 +67,31 @@
         </p>
     </div>
 
-    <div id="game-over" class="on-top-screen display-none"></div>
-    <div id="victory" class="on-top-screen display-none"></div>
+    <div id="game-over" class="on-top-screen-black display-none">
+        <h3>GAME OVER!</h3>
+        <p>
+            You've let the virus escape and mutate, now the population is infected again. 
+        </p>
+        <p>
+            It seems it was inevitable ...
+        </p>
+        <button id="restart" type="button" class="btn btn-info">RESTART GAME</button>
+        <p>Score: <span id="gameOver-scoreSpan"></span></p>
+    </div>
 
+    <!-- BOTTOM BUTTONS -->
     <div id="buttons">
         <button id="instructions-button" type="button" class="btn btn-info">Instructions</button>
         <button id="new-game" type="button" class="btn btn-info">NEW GAME</button>
         <button id="sound" type="button" class="btn btn-info">Sound On/Off <img id="soundON" src="/images/speaker20x20.png" alt="speaker"><img id="soundOFF" class="display-none" src="/images/speakerOFF20x20.png" alt="speaker"></button>
     </div>
 
+    <!-- CREDITS -->
     <footer id="done-by">by Pablo Cabrera © 2021</footer>
 
+    <!-- JS SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-
     <script src="/js/app.js"></script>
 
 </body>

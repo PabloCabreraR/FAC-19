@@ -32,6 +32,10 @@ window.onload = () => {
     const soundON = document.querySelector('#soundON')
     const soundOFF = document.querySelector('#soundOFF')
 
+    const gameOverScreenScore = document.querySelector('#gameOver-scoreSpan')
+    const gameOverScreen = document.querySelector('#game-over')
+
+    const skullImg = document.querySelector('#skull')
     const lifesIMGs = document.querySelectorAll('#lifes img')
     const lifesArray = [...lifesIMGs]
 
@@ -43,10 +47,11 @@ window.onload = () => {
  
     let backgroundAudio // INITIALIZE BACKGROUND AUDIO
     let splashAudio // INITIALIZE SPLASH AUDIO
+    let gameOverAudio // INITIALIZE GAME OVER AUDIO
 
     let score = 0 // SCORE VARIABLE FOR DISPLAY AND COUNT
     let counterOfVirusOnScreen = 0  
-    let cooldownForLifeOff = 200
+    let cooldownForLifeOff = 250
 
     const arrayOfVirus = []
 
@@ -62,7 +67,7 @@ window.onload = () => {
         instructionsButton.disabled = true
     }
 
-    // START GAME FUNCTION
+    // START GAME FUNCTION ON CLICK
     const startGame = () => {
         intro.classList.add('display-none')
         instructionsDiv.classList.add("display-none")
@@ -79,6 +84,9 @@ window.onload = () => {
 
         splashAudio = new Audio('/sounds/virusDeath.mp3')
         splashAudio.volume = 0.1
+
+        gameOverAudio = new Audio('/sounds/gameover.mp3')
+        gameOverAudio.volume = 0.5
     }
 
     // CLEAR WHOLE CANVAS
@@ -106,8 +114,7 @@ window.onload = () => {
     // VIRUS DRAWING ON SCREEN
     const drawVirus = () =>{
         arrayOfVirus.forEach((virus)=>{
-            virus.drawSelf()
-            
+            virus.drawSelf()       
         })
     }
 
@@ -133,9 +140,9 @@ window.onload = () => {
     // CHECK NUMBER OF VIRUS ON SCREEN TO LOOSE LIFES
     const checkNumberOfVirusOnScreen = () => {
         cooldownForLifeOff++
-        if (cooldownForLifeOff >= 200){
+        if (cooldownForLifeOff >= 250){
             if (counterOfVirusOnScreen >= 5){
-            lifesArray[(lifes-1)].className = 'display-none'
+            lifesArray[lifes].classList.add('display-none')
             lifes--
             cooldownForLifeOff = 0
             }
@@ -185,8 +192,9 @@ window.onload = () => {
 
     // CHECK NUMBER OF LIFES TO CHECK GAME OVER
     const checkLifes = () => {
-        if (lifes = 0){
+        if (lifes === 0){
             gameOver = true
+            skullImg.className = ''
         }
     }
     
@@ -202,7 +210,11 @@ window.onload = () => {
             checkScoreLevelUp()
             checkLifes()
         }else{
-            console.log('GAME OVER')
+            gameOverScreen.classList.remove('display-none')
+            gameOverScreenScore.innerText = threeDigitsScore(score)
+            backgroundAudio.pause()
+            gameOverAudio.play()
+            cancelAnimationFrame()
         }
         requestAnimationFrame(updateCanvas)
     }
@@ -239,5 +251,11 @@ window.onload = () => {
         }
     }
 }
+
+// RESTART BUTTON
+const restartButton = document.querySelector('#restart')
+restartButton.addEventListener('click', () => {
+    location.reload()
+})
 
 
