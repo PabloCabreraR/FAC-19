@@ -12,9 +12,9 @@ window.onload = () => {
 
         renderViruses(){
             this.virusImg = new Image()
-            this.virusImg.src = '/images/greenVIRUS.png'
+            this.virusImg.src = './images/greenVIRUS.png'
             this.virusDeathImage = new Image()
-            this.virusDeathImage.src = '/images/greenVIRUSdead.png'
+            this.virusDeathImage.src = './images/greenVIRUSdead.png'
         }
 
         drawSelf(){
@@ -90,17 +90,17 @@ window.onload = () => {
 
     // LOAD AUDIOS 
     const loadAudios = () => {
-        backgroundAudio = new Audio('/sounds/Background-song.mp3')
+        backgroundAudio = new Audio('./sounds/Background-song.mp3')
         backgroundAudio.loop
         backgroundAudio.volume = 0.1
 
-        splashAudio = new Audio('/sounds/virusDeath.mp3')
+        splashAudio = new Audio('./sounds/virusDeath.mp3')
         splashAudio.volume = 0.1
 
-        gameOverAudio = new Audio('/sounds/gameover.mp3')
+        gameOverAudio = new Audio('./sounds/gameover.mp3')
         gameOverAudio.volume = 0.5
 
-        lifeLost = new Audio('/sounds/lifeLost.mp3')
+        lifeLost = new Audio('./sounds/lifeLost.mp3')
         lifeLost.volume = 0.1
     }
 

@@ -4,7 +4,7 @@
 }
 
 body {
-    cursor: url('/images/syringeRED.png'), url('/images/syringeRED32x32.png'), auto;
+    cursor: url('./images/syringeRED.png'), url('./images/syringeRED32x32.png'), auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,7 +26,6 @@ h1 {
     margin-top: 2vh;
     font-weight: bold;
     font-size: 3rem;
-
 }
 
 .subtitle {
@@ -88,7 +87,7 @@ canvas {
     margin: 2vh 43vw 2vh 43vw;
     border: 3px solid rgb(0, 71, 75);
     font-size: 1.2rem;
-    cursor: url('/images/syringeRED.png'), url('/images/syringeRED32x32.png'), auto;
+    cursor: url('./images/syringeRED.png'), url('./images/syringeRED32x32.png'), auto;
     padding-bottom: 1.5vh;
 }
 
@@ -102,7 +101,7 @@ canvas {
     margin-top: 1vh;
     border: 3px solid rgb(0, 71, 75);
     font-size: 1.2rem;
-    cursor: url('/images/syringeRED.png'), url('/images/syringeRED32x32.png'), auto;
+    cursor: url('./images/syringeRED.png'), url('./images/syringeRED32x32.png'), auto;
     padding-bottom: 1vh;
 }
 
