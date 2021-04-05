@@ -101,7 +101,7 @@ canvas {
     margin-top: 1vh;
     border: 3px solid rgb(0, 71, 75);
     font-size: 1.2rem;
-    cursor: url('./images/syringeRED.png'), url('./images/syringeRED32x32.png'), auto;
+    cursor: url('../images/syringeRED.png'), url('../images/syringeRED32x32.png'), auto;
     padding-bottom: 1vh;
 }
 
