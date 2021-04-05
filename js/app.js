@@ -117,7 +117,7 @@ window.onload = () => {
     // VIRUS CREATION
     const createVirus = () => {
         virusCreationCounter ++
-        if (virusCreationCounter === 170){
+        if (virusCreationCounter === 150){
             const virus = new Virus()
             virus.renderViruses()
             arrayOfVirus.push(virus)
@@ -183,21 +183,21 @@ window.onload = () => {
 
     // CHECK SCORE FOR LVL UP
     const checkScoreLevelUp = () => {
-        if (score >= 170){
-            difficulty = 170
-        }else if (score >= 140){
+        if (score >= 120){
+            difficulty = 145
+        }else if (score >= 100){
             difficulty = 140
             console.log('lvl up. LVL MAX')
-        }else if (score >= 110){
+        }else if (score >= 80){
             difficulty = 110
             console.log('lvl up. LVL 4')
-        }else if (score >= 90){
+        }else if (score >= 60){
             difficulty = 90
             console.log('lvl up. LVL 3')
-        }else if (score >=60){
+        }else if (score >=40){
             difficulty = 60
             console.log('lvl up. LVL 2')
-        }else if (score >= 30){
+        }else if (score >= 20){
             difficulty = 30
             console.log('lvl up. LVL 1')
         }else{
