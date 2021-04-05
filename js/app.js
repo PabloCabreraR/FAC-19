@@ -57,7 +57,7 @@ window.onload = () => {
     let backgroundAudio // INITIALIZE BACKGROUND AUDIO.
     let splashAudio // INITIALIZE SPLASH AUDIO.
     let gameOverAudio // INITIALIZE GAME OVER AUDIO.
-    let lifeLost // INITIALIZE LIFE LOST AUDIO.
+    let lifeLostAudio // INITIALIZE LIFE LOST AUDIO.
 
     let score = 0 // SCORE VARIABLE FOR DISPLAY AND COUNT.
     let counterOfVirusOnScreen = 0  // COUNTER OF VIRUS ON SCREEN SO THAT IF ITS >= TO 5 IT STARTS LOOSING LIFES.
@@ -100,8 +100,8 @@ window.onload = () => {
         gameOverAudio = new Audio('./sounds/gameover.mp3')
         gameOverAudio.volume = 0.5
 
-        lifeLost = new Audio('./sounds/lifeLost.mp3')
-        lifeLost.volume = 0.1
+        lifeLostAudio = new Audio('./sounds/lifeLost.mp3')
+        lifeLostAudio.volume = 0.1
     }
 
     // CLEAR WHOLE CANVAS
@@ -157,7 +157,7 @@ window.onload = () => {
         if (cooldownForLifeOff >= 250){
             if (counterOfVirusOnScreen >= 5){
             lifesArray[lifes].classList.add('display-none')
-            lifeLost.play()
+            lifeLostAudio.play()
             lifes--
             cooldownForLifeOff = 0
             }
@@ -242,12 +242,15 @@ window.onload = () => {
         if (!soundButton.classList.contains('muted')){
             backgroundAudio.muted = false
             splashAudio.muted = false
+            lifeLostAudio.muted = false
+            gameOverAudio.muted = false
             soundOFF.classList.add("display-none")
             soundON.classList.remove("display-none")
-
         }else{
             backgroundAudio.muted = true
             splashAudio.muted = true
+            lifeLostAudio.muted = true
+            gameOverAudio.muted = true
             soundON.classList.add("display-none")
             soundOFF.classList.remove("display-none")
         }
