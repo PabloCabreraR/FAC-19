@@ -19,9 +19,3 @@ GAME OVER
 GAME OVER!
 You have let the virus escape and mutate, now the population is infected again. It seems it was inevitable ...
 Well, another wave of infection
-
-
-VICTORY
-
-Hurrah! We have finally gotten rid of that damn virus that has done so much damage to the world! Good job!
-Play again. EXIT

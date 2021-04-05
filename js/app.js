@@ -1,5 +1,5 @@
 window.onload = () => {
-    // CLASS VIRUS
+    // CLASS VIRUS.
     class Virus{
         constructor(){
             this.virusImg = ''
@@ -14,53 +14,65 @@ window.onload = () => {
             this.virusImg = new Image()
             this.virusImg.src = '/images/greenVIRUS.png'
             this.virusDeathImage = new Image()
-            this.virusDeathImage.src = '/images/virus2deleted.png'
+            this.virusDeathImage.src = '/images/greenVIRUSdead.png'
         }
 
         drawSelf(){
             ctx.drawImage(this.virusImg, this.x, this.y, this.size, this.size)
         }
+
+        drawDead(){
+            ctx.drawImage(this.virusDeathImage, this.x, this.y, this.size, this.size)
+        }
     }
 
-    // VARIABLES DELCARED
-    const canvas = document.getElementById('canvas')
-    const ctx = canvas.getContext('2d')
-    const canvasLeft = canvas.offsetLeft + canvas.clientLeft // GET CANVAS X=0 POSITION ON SCREEN
-    const canvasTop = canvas.offsetTop + canvas.clientTop // GET CANVAS Y=0 POSITION ON SCREEN
+    // VARIABLES DELCARED.
+    const canvas = document.getElementById('canvas') // CANVAS SELECTOR.
+    const ctx = canvas.getContext('2d') // SETTING 2D ENVIROMENT.
+    const canvasLeft = canvas.offsetLeft + canvas.clientLeft // GET CANVAS X=0 POSITION ON SCREEN.
+    const canvasTop = canvas.offsetTop + canvas.clientTop // GET CANVAS Y=0 POSITION ON SCREEN.
 
-    const intro = document.querySelector('#Intro')
-    const soundON = document.querySelector('#soundON')
-    const soundOFF = document.querySelector('#soundOFF')
+    const newGameButton = document.querySelector('#new-game') // NEW GAME BUTTON SELECTOR
+    const soundButton = document.querySelector('#sound') // SOUND BUTTON SELECTOR FOR MUTE OR UNMUTE
+    const instructionsButton = document.querySelector('#instructions-button') // INSTRUCTIONS BUTTON SELECTOR TO DISPLAY INSTRUCTIONS
+    const instructionsDiv = document.querySelector('#instructions-div') // INSTRUCTIONS DIV TO DISPLAY
+    const restartButton = document.querySelector('#restart') // RESTART BUTTON TO RESTART THE GAME
 
-    const gameOverScreenScore = document.querySelector('#gameOver-scoreSpan')
-    const gameOverScreen = document.querySelector('#game-over')
 
-    const skullImg = document.querySelector('#skull')
-    const lifesIMGs = document.querySelectorAll('#lifes img')
-    const lifesArray = [...lifesIMGs]
+    const intro = document.querySelector('#Intro') // INTRODUCTION DIV SELECTOR.
+    const soundON = document.querySelector('#soundON') // SPEAKER BLACK IMG.
+    const soundOFF = document.querySelector('#soundOFF') // SPEAKER GREY IMAGE.
 
-    ctx.fillStyle = 'rgba(30, 243, 255, 0.40)' // COLOR OF BACKGROUND OF CANVAS
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height) // DRAW BACKGROUND
+    const gameOverScreenScore = document.querySelector('#gameOver-scoreSpan') // GAMEOVER SHOW SCORE SPAN SELECTOR.
+    const gameOverScreen = document.querySelector('#game-over') // GAMEOVER DIV SELECTOR.
 
-    let gameOver = false // GAME OVER CHECK VARIABLE
-    let lifes = 5
+    const skullImg = document.querySelector('#skull') // SKULL IMAGE SELECTOR FOR GAMEOVER.
+    const lifesIMGs = document.querySelectorAll('#lifes img') // LIKES IMGS SELECTOR FOR LOOSING LIFES.
+    const lifesArray = [...lifesIMGs] // COPY OF ALL IMG ELEMENTES OF LIFES.
+
+    let gameOver = false // GAME OVER CHECK VARIABLE.
+    let gameLoop = true
+    let lifes = 5 // NUMBER OF LIFES YOU HAVE BEFORE GAMEOVER/
  
-    let backgroundAudio // INITIALIZE BACKGROUND AUDIO
-    let splashAudio // INITIALIZE SPLASH AUDIO
-    let gameOverAudio // INITIALIZE GAME OVER AUDIO
+    let backgroundAudio // INITIALIZE BACKGROUND AUDIO.
+    let splashAudio // INITIALIZE SPLASH AUDIO.
+    let gameOverAudio // INITIALIZE GAME OVER AUDIO.
+    let lifeLost // INITIALIZE LIFE LOST AUDIO.
 
-    let score = 0 // SCORE VARIABLE FOR DISPLAY AND COUNT
-    let counterOfVirusOnScreen = 0  
-    let cooldownForLifeOff = 250
+    let score = 0 // SCORE VARIABLE FOR DISPLAY AND COUNT.
+    let counterOfVirusOnScreen = 0  // COUNTER OF VIRUS ON SCREEN SO THAT IF ITS >= TO 5 IT STARTS LOOSING LIFES.
+    let cooldownForLifeOff = 250 // ITS A COOLDOWN TIME(COUNTER) SO IT DOESNT LOOSE ALL THE LIFES AT ONCE.
 
-    const arrayOfVirus = []
+    const arrayOfVirus = [] // ARRAY WHERE I PUSH MY VIRUS ONCE CREATED AND WHERE I GET THEM FROM TO DRAW THEM
 
-    let virusCreationCounter = 0
-    let difficulty = 0
+    let virusCreationCounter = 0 // ITS A COUNTER FOR SPEED OF VIRUS CREATION
+    let difficulty = 0 // A COUNTER TO ADD DIFFICULTY AS YOU PROGRESS THROUGH THE GAME
 
+    // PAINT BACKGROUND FIRST TIME 
+    ctx.fillStyle = 'rgba(30, 243, 255, 0.40)' // COLOR OF BACKGROUND OF CANVAS.
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height) // DRAW BACKGROUND.
 
     // NEW GAME BUTTON
-    let newGameButton = document.querySelector('#new-game')
     newGameButton.onclick = () => {
         startGame()
         newGameButton.disabled = true
@@ -87,6 +99,9 @@ window.onload = () => {
 
         gameOverAudio = new Audio('/sounds/gameover.mp3')
         gameOverAudio.volume = 0.5
+
+        lifeLost = new Audio('/sounds/lifeLost.mp3')
+        lifeLost.volume = 0.1
     }
 
     // CLEAR WHOLE CANVAS
@@ -102,7 +117,7 @@ window.onload = () => {
     // VIRUS CREATION
     const createVirus = () => {
         virusCreationCounter ++
-        if (virusCreationCounter === 180){
+        if (virusCreationCounter === 170){
             const virus = new Virus()
             virus.renderViruses()
             arrayOfVirus.push(virus)
@@ -129,7 +144,6 @@ window.onload = () => {
             // CHECK FOR VIRUS ON POSITION CLICKED
             if (canvasY > virus.y && canvasY < virusYandHeight && canvasX > virus.x && canvasX < virusXandWidth){
                 arrayOfVirus.splice(index, 1)
-                // virus.virusImg = !!!!!!!!!!!!!!!!!!!!!!!!!******************************************************************************
                 splashAudio.play()
                 score++
                 counterOfVirusOnScreen--
@@ -143,6 +157,7 @@ window.onload = () => {
         if (cooldownForLifeOff >= 250){
             if (counterOfVirusOnScreen >= 5){
             lifesArray[lifes].classList.add('display-none')
+            lifeLost.play()
             lifes--
             cooldownForLifeOff = 0
             }
@@ -197,7 +212,7 @@ window.onload = () => {
             skullImg.className = ''
         }
     }
-    
+
     // GAME LOOP
     const updateCanvas = () => {
         if (!gameOver){
@@ -210,17 +225,18 @@ window.onload = () => {
             checkScoreLevelUp()
             checkLifes()
         }else{
+            gameLoop = false
             gameOverScreen.classList.remove('display-none')
             gameOverScreenScore.innerText = threeDigitsScore(score)
             backgroundAudio.pause()
             gameOverAudio.play()
-            cancelAnimationFrame()
         }
-        requestAnimationFrame(updateCanvas)
+        if(gameLoop){
+            requestAnimationFrame(updateCanvas)
+        }  
     }
 
     // SOUND BUTTON EVENT LISTENER
-    const soundButton = document.querySelector('#sound')
     soundButton.addEventListener('click', ()=>{
         soundButton.classList.toggle('muted')
         if (!soundButton.classList.contains('muted')){
@@ -238,8 +254,6 @@ window.onload = () => {
     })
 
     // INSTRUCTIONS BUTTON EVENT LISTENER   
-    const instructionsButton = document.querySelector('#instructions-button')
-    const instructionsDiv = document.querySelector('#instructions-div')
     instructionsButton.onclick = ()=>{
         instructionsDiv.classList.toggle('display-none')
         if (!instructionsDiv.classList.contains('display-none')){
@@ -250,12 +264,9 @@ window.onload = () => {
             intro.classList.remove('display-none')
         }
     }
+
+    // RESTART BUTTON
+    restartButton.addEventListener('click', () => {
+        location.reload()
+    })
 }
-
-// RESTART BUTTON
-const restartButton = document.querySelector('#restart')
-restartButton.addEventListener('click', () => {
-    location.reload()
-})
-
-
