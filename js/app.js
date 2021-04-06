@@ -171,7 +171,6 @@ window.onload = () => {
             if (canvasY > virus.y && canvasY < virusYandHeight && canvasX > virus.x && canvasX < virusXandWidth){
                 arryaOfDeadVirus.push(virus)
                 arrayOfVirus.splice(index, 1)
-                splashAudio.play()
                 score++
                 counterOfVirusOnScreen--
             }
@@ -409,13 +408,15 @@ window.onload = () => {
         mouseCursor.style.top = event.pageY + 'px';
         mouseCursor.style.left = event.pageX + 'px';
     })
-    // window.addEventListener('mousedown',() => {
-    //     mouseCursor.src ='images/hammer2.png';
-    // })
-        
-    // window.addEventListener('mouseup',() => {
-    //     mouseCursor.src ='images/hammer.png';
-    // })
+
+    // CHANGING CURSOR IMAGE ONCLICK AND PLAYING CLICK SOUND
+    window.addEventListener('mousedown',() => {
+        splashAudio.play()
+        mouseCursor.src ='images/syringeCLICKED.png';
+    }) 
+    window.addEventListener('mouseup',() => {
+        mouseCursor.src ='images/syringeUNCLICKED.png';
+    })
 
     // TO CHECK THE REFRESH RATE OF THE MONITOR LIVE (Implementation of a post on the internet by Carlos Delgado)
     function getScreenRefreshRate(callback, runIndefinitely){
