@@ -5,7 +5,7 @@
 
 html {
     cursor: none;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 body {
@@ -134,9 +134,9 @@ canvas {
     z-index: 2;
     margin-top: 15.5vh;
     background-color: #9e9e9ec5;
-    height: 53.5vh;
+    height: 500px;
     position: absolute;
-    width: 52.2vw;
+    width: 1000px;
 }
 
 .on-top-screen-black {
