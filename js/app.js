@@ -62,6 +62,7 @@ window.onload = () => {
     let score = 0 // SCORE VARIABLE FOR DISPLAY AND COUNT.
     let counterOfVirusOnScreen = 0  // COUNTER OF VIRUS ON SCREEN SO THAT IF ITS >= TO 5 IT STARTS LOOSING LIFES.
     let cooldownForLifeOff = 250 // ITS A COOLDOWN TIME(COUNTER) SO IT DOESNT LOOSE ALL THE LIFES AT ONCE.
+    let FPStoCheck // INITIALIZE A VARIABLE TO SET THE REFRESH RATE IN.
 
     const arrayOfVirus = [] // ARRAY WHERE I PUSH MY VIRUS ONCE CREATED AND WHERE I GET THEM FROM TO DRAW THEM
 
@@ -71,6 +72,11 @@ window.onload = () => {
     // PAINT BACKGROUND FIRST TIME 
     ctx.fillStyle = 'rgba(30, 243, 255, 0.40)' // COLOR OF BACKGROUND OF CANVAS.
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height) // DRAW BACKGROUND.
+
+    // FONT STYLE FOR CANVAS LVL DISPLAY
+    ctx.font = '30px PIXEL'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
 
     // NEW GAME BUTTON
     newGameButton.onclick = () => {
@@ -111,19 +117,30 @@ window.onload = () => {
 
     // DRAW BLUE BACKGROUND
     const drawBackground = () => {
+        ctx.fillStyle = 'rgba(30, 243, 255, 0.40)'
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     }
 
     // VIRUS CREATION
     const createVirus = () => {
         virusCreationCounter ++
-        if (virusCreationCounter === 150){
-            const virus = new Virus()
-            virus.renderViruses()
-            arrayOfVirus.push(virus)
-            counterOfVirusOnScreen++
-            virusCreationCounter = difficulty
-        }
+        if (FPStoCheck >= 100){
+            if (virusCreationCounter === 150){
+                const virus = new Virus()
+                virus.renderViruses()
+                arrayOfVirus.push(virus)
+                counterOfVirusOnScreen++
+                virusCreationCounter = difficulty
+            }
+        }else if (FPStoCheck < 100){
+            if (virusCreationCounter === 100){
+                const virus = new Virus()
+                virus.renderViruses()
+                arrayOfVirus.push(virus)
+                counterOfVirusOnScreen++
+                virusCreationCounter = difficulty
+            }
+        }       
     }
 
     // VIRUS DRAWING ON SCREEN
@@ -183,25 +200,61 @@ window.onload = () => {
 
     // CHECK SCORE FOR LVL UP
     const checkScoreLevelUp = () => {
-        if (score >= 120){
-            difficulty = 145
-        }else if (score >= 100){
-            difficulty = 140
-            console.log('lvl up. LVL MAX')
-        }else if (score >= 80){
-            difficulty = 110
-            console.log('lvl up. LVL 4')
-        }else if (score >= 60){
-            difficulty = 90
-            console.log('lvl up. LVL 3')
-        }else if (score >=40){
-            difficulty = 60
-            console.log('lvl up. LVL 2')
-        }else if (score >= 20){
-            difficulty = 30
-            console.log('lvl up. LVL 1')
+        if (FPStoCheck >= 100){
+            if (score >= 120){
+                drawLvlOnScreen(6)
+                difficulty = 145
+            }else if (score >= 100){
+                drawLvlOnScreen(5)
+                difficulty = 140
+            }else if (score >= 80){
+                drawLvlOnScreen(4)
+                difficulty = 110
+            }else if (score >= 60){
+                drawLvlOnScreen(3)
+                difficulty = 90
+            }else if (score >=40){
+                drawLvlOnScreen(2)
+                difficulty = 60
+            }else if (score >= 20){
+                drawLvlOnScreen(1)
+                difficulty = 30
+            }else{
+                drawLvlOnScreen(0)
+                difficulty = 0
+            }
+        }else if (FPStoCheck < 100){
+            if (score >= 120){
+                drawLvlOnScreen(6)
+            }else if (score >= 100){
+                difficulty = 85
+                drawLvlOnScreen(5)
+            }else if (score >= 80){
+                difficulty = 70
+                drawLvlOnScreen(4)
+            }else if (score >= 60){
+                difficulty = 45
+                drawLvlOnScreen(3)
+            }else if (score >=40){
+                difficulty = 30
+                drawLvlOnScreen(2)
+            }else if (score >= 20){
+                difficulty = 20
+                drawLvlOnScreen(1)
+            }else{
+                difficulty = 0
+                drawLvlOnScreen(0)
+            }
+        }          
+    }
+
+    const drawLvlOnScreen = (num) => {
+        if(num === 6){
+            ctx.fillStyle = 'rgba(79, 79, 79, 0.40)'
+            ctx.fillText("LVL MAX", ctx.canvas.width/2, 35)
         }else{
-            difficulty = 0
+            ctx.fillStyle = 'rgba(79, 79, 79, 0.40)'
+            ctx.fillText(`LVL: ${num}`, ctx.canvas.width/2, 35)
         }
     }
 
@@ -216,6 +269,7 @@ window.onload = () => {
     // GAME LOOP
     const updateCanvas = () => {
         if (!gameOver){
+            console.log(FPStoCheck)
             clearCanvas()
             drawBackground()
             createVirus()
@@ -272,4 +326,50 @@ window.onload = () => {
     restartButton.addEventListener('click', () => {
         location.reload()
     })
+
+    // TO CHECK THE REFRESH RATE OF THE MONITOR LIVE (Implementation of a post on the internet by Carlos Delgado)
+    function getScreenRefreshRate(callback, runIndefinitely){
+        let requestId = null
+        let callbackTriggered = false
+        runIndefinitely = runIndefinitely || false
+
+        if (!window.requestAnimationFrame) {
+            window.requestAnimationFrame = window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame
+        }
+        
+        let DOMHighResTimeStampCollection = []
+
+        let triggerAnimation = (DOMHighResTimeStamp)=>{
+            DOMHighResTimeStampCollection.unshift(DOMHighResTimeStamp)
+            
+            if (DOMHighResTimeStampCollection.length > 10) {
+                let t0 = DOMHighResTimeStampCollection.pop()
+                let fps = Math.floor(1000 * 10 / (DOMHighResTimeStamp - t0))
+
+                if(!callbackTriggered){
+                    callback.call(undefined, fps, DOMHighResTimeStampCollection)
+                }
+
+                if(runIndefinitely){
+                    callbackTriggered = false
+                }else{
+                    callbackTriggered = true
+                }
+            }
+        
+            requestId = window.requestAnimationFrame(triggerAnimation)
+        };
+        
+        window.requestAnimationFrame(triggerAnimation)
+
+        if(!runIndefinitely){
+            window.setTimeout(()=>{
+                window.cancelAnimationFrame(requestId)
+                requestId = null
+            }, 500)
+        }
+    }
+    getScreenRefreshRate((FPS)=>{
+        FPStoCheck = FPS
+    }, true)
 }

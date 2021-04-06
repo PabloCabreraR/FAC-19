@@ -3,8 +3,11 @@
     src: url('/fonts/Pixeled.ttf');
 }
 
-body {
+html {
     cursor: url('../images/syringeRED.png'), url('../images/syringeRED32x32.png'), auto;
+}
+
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -133,7 +136,7 @@ canvas {
     margin-top: 16vh;
     background-color: #000000;
     color: white;
-    height: 55vh;
+    height: 516px;
     position: absolute;
     width: 100vw;
  }
