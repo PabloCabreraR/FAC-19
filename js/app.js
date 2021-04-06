@@ -34,6 +34,7 @@ window.onload = () => {
 
     const newGameButton = document.querySelector('#new-game') // NEW GAME BUTTON SELECTOR
     const soundButton = document.querySelector('#sound') // SOUND BUTTON SELECTOR FOR MUTE OR UNMUTE
+    soundButton.disabled = true
     const instructionsButton = document.querySelector('#instructions-button') // INSTRUCTIONS BUTTON SELECTOR TO DISPLAY INSTRUCTIONS
     const instructionsDiv = document.querySelector('#instructions-div') // INSTRUCTIONS DIV TO DISPLAY
     const restartButton = document.querySelector('#restart') // RESTART BUTTON TO RESTART THE GAME
@@ -47,6 +48,7 @@ window.onload = () => {
     const gameOverScreenScore = document.querySelector('#gameOver-scoreSpan') // GAMEOVER SHOW SCORE SPAN SELECTOR.
     const gameOverScreen = document.querySelector('#game-over') // GAMEOVER DIV SELECTOR.
 
+    const subtitleImage = document.querySelector('#subtitleImage') // GET THE SUBTITLE IMAGE DIV TO CHANGE IT WITH LVLS UP
     const skullImg = document.querySelector('#skull') // SKULL IMAGE SELECTOR FOR GAMEOVER.
     const lifesIMGs = document.querySelectorAll('#lifes img') // LIKES IMGS SELECTOR FOR LOOSING LIFES.
     const lifesArray = [...lifesIMGs] // COPY OF ALL IMG ELEMENTES OF LIFES.
@@ -92,8 +94,9 @@ window.onload = () => {
     const startGame = () => {
         intro.classList.add('display-none')
         instructionsDiv.classList.add("display-none")
+        soundButton.disabled = false
         loadAudios()
-        backgroundAudio.play()       
+        backgroundAudio.play()      
         updateCanvas()
     }
 
@@ -276,42 +279,49 @@ window.onload = () => {
     const changeColor = (lvl) =>{
         switch(lvl) {
             case 6:
+                subtitleImage.src = './images/Virus/blackVIRUS6.png'
                 arrayOfVirus.forEach((virus)=>{
                     virus.virusImg.src = './images/Virus/blackVIRUS6.png'
                     virus.virusDeathImage.src = './images/Virus/blackVIRUSdead6.png'
                 })
                 break
             case 5:
+                subtitleImage.src = './images/Virus/purpleVIRUS5.png'
                 arrayOfVirus.forEach((virus)=>{
                     virus.virusImg.src = './images/Virus/purpleVIRUS5.png'
                     virus.virusDeathImage.src = './images/Virus/purpleVIRUSdead5.png'
                 })
                 break
             case 4:
+                subtitleImage.src = './images/Virus/pinkVIRUS4.png'
                 arrayOfVirus.forEach((virus)=>{
                     virus.virusImg.src = './images/Virus/pinkVIRUS4.png'
                     virus.virusDeathImage.src = './images/Virus/pinkVIRUSdead4.png'
                 })
                 break
             case 3:
+                subtitleImage.src = './images/Virus/redVIRUS3.png'
                 arrayOfVirus.forEach((virus)=>{
                     virus.virusImg.src = './images/Virus/redVIRUS3.png'
                     virus.virusDeathImage.src = './images/Virus/redVIRUSdead3.png'
                 })
                 break
             case 2:
+                subtitleImage.src = './images/Virus/orangeVIRUS2.png'
                 arrayOfVirus.forEach((virus)=>{
                     virus.virusImg.src = './images/Virus/orangeVIRUS2.png'
                     virus.virusDeathImage.src = './images/Virus/orangeVIRUSdead2.png'
                 })
                 break
             case 1:
+                subtitleImage.src = './images/Virus/yellowVIRUS1.png'
                 arrayOfVirus.forEach((virus)=>{
                     virus.virusImg.src = './images/Virus/yellowVIRUS1.png'
                     virus.virusDeathImage.src = './images/Virus/yellowVIRUSdead1.png'
                 })
                 break
             default:
+                subtitleImage.src = './images/Virus/greenVIRUS.png'
                 arrayOfVirus.forEach((virus)=>{
                     virus.virusImg.src = './images/Virus/greenVIRUS.png'
                     virus.virusDeathImage.src = './images/Virus/greenVIRUSdead.png'
@@ -464,3 +474,11 @@ window.onload = () => {
         FPStoCheck = FPS
     })
 }
+
+window.addEventListener('mousedown',() => {
+    splashAudio.play()
+    mouseCursor.src ='images/syringeCLICKED.png';
+}) 
+window.addEventListener('mouseup',() => {
+    mouseCursor.src ='images/syringeUNCLICKED.png';
+})
