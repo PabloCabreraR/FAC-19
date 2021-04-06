@@ -355,8 +355,12 @@ window.onload = () => {
             gameLoop = false
             gameOverScreen.classList.remove('display-none')
             gameOverScreenScore.innerText = threeDigitsScore(score)
+            restartButton.disabled = true
             backgroundAudio.pause()
             gameOverAudio.play()
+            setTimeout (()=>{
+                restartButton.disabled = false
+            }, 3000)
         }
         if(gameLoop){
             requestAnimationFrame(updateCanvas)
