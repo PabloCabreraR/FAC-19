@@ -226,6 +226,7 @@ window.onload = () => {
         }else if (FPStoCheck < 100){
             if (score >= 120){
                 drawLvlOnScreen(6)
+                difficulty = 95
             }else if (score >= 100){
                 difficulty = 85
                 drawLvlOnScreen(5)
