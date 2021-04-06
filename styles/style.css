@@ -4,7 +4,8 @@
 }
 
 html {
-    cursor: url('../images/syringeRED.png'), url('../images/syringeRED32x32.png'), auto;
+    cursor: none;
+    overflow: hidden;
 }
 
 body {
@@ -90,7 +91,7 @@ canvas {
     margin: 2vh 43vw 2vh 43vw;
     border: 3px solid rgb(0, 71, 75);
     font-size: 1.2rem;
-    cursor: url('../images/syringeRED.png'), url('../images/syringeRED32x32.png'), auto;
+    cursor: none;
     padding-bottom: 1.5vh;
 }
 
@@ -104,7 +105,7 @@ canvas {
     margin-top: 1vh;
     border: 3px solid rgb(0, 71, 75);
     font-size: 1.2rem;
-    cursor: url('../images/syringeRED.png'), url('../images/syringeRED32x32.png'), auto;
+    cursor: none;
     padding-bottom: 1vh;
 }
 
@@ -115,43 +116,50 @@ canvas {
 #done-by{
     margin-top: 2vh;
     font-weight: bold;
- } 
+}
 
 
- .display-none {
+
+.display-none {
      display: none;
- }
+}
 
- .on-top-screen {
-     z-index: 2;
-     margin-top: 15.5vh;
-     background-color: #9e9e9ec5;
-     height: 53.5vh;
-     position: absolute;
-     width: 52.2vw;
- }
-
- .on-top-screen-black {
-    z-index: 2;
-    margin-top: 16vh;
-    background-color: #000000;
-    color: white;
-    height: 516px;
+#cursor {
     position: absolute;
-    width: 100vw;
- }
+    pointer-events: none;
+    z-index: 5;
+}
 
- .on-top-screen p ,
- .on-top-screen-black p{
-     width: 50vw;
-     text-align: center;
-     font-size: 1.3rem;
-     font-weight: bold;
-     word-spacing: 0.6vw;
-     margin-left: auto;
-     margin-right: auto;
-     margin-top: 4vh;
- }
+.on-top-screen {
+    z-index: 2;
+    margin-top: 15.5vh;
+    background-color: #9e9e9ec5;
+    height: 53.5vh;
+    position: absolute;
+    width: 52.2vw;
+}
+
+.on-top-screen-black {
+z-index: 2;
+margin-top: 16vh;
+background-color: #000000;
+color: white;
+height: 516px;
+position: absolute;
+width: 100vw;
+}
+
+.on-top-screen p ,
+.on-top-screen-black p{
+    width: 50vw;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    word-spacing: 0.6vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4vh;
+}
 
  .on-top-screen-black h3{
      text-align: center;

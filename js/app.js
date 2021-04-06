@@ -12,9 +12,9 @@ window.onload = () => {
 
         renderViruses(){
             this.virusImg = new Image()
-            this.virusImg.src = './images/greenVIRUS.png'
+            this.virusImg.src = './images/Virus/greenVIRUS.png'
             this.virusDeathImage = new Image()
-            this.virusDeathImage.src = './images/greenVIRUSdead.png'
+            this.virusDeathImage.src = './images/Virus/greenVIRUSdead.png'
         }
 
         drawSelf(){
@@ -38,6 +38,7 @@ window.onload = () => {
     const instructionsDiv = document.querySelector('#instructions-div') // INSTRUCTIONS DIV TO DISPLAY
     const restartButton = document.querySelector('#restart') // RESTART BUTTON TO RESTART THE GAME
 
+    const mouseCursor = document.querySelector('#cursor') // SELECT THE IMAGE FOR THE CURSOR
 
     const intro = document.querySelector('#Intro') // INTRODUCTION DIV SELECTOR.
     const soundON = document.querySelector('#soundON') // SPEAKER BLACK IMG.
@@ -53,6 +54,7 @@ window.onload = () => {
     let gameOver = false // GAME OVER CHECK VARIABLE.
     let gameLoop = true
     let lifes = 5 // NUMBER OF LIFES YOU HAVE BEFORE GAMEOVER/
+    let LVL = 0 // TO CHANGE VIRUS COLORS
  
     let backgroundAudio // INITIALIZE BACKGROUND AUDIO.
     let splashAudio // INITIALIZE SPLASH AUDIO.
@@ -212,51 +214,113 @@ window.onload = () => {
             if (score >= 120){
                 drawLvlOnScreen(6)
                 difficulty = 145
+                changeColor(6)
             }else if (score >= 100){
                 drawLvlOnScreen(5)
                 difficulty = 140
+                changeColor(5)
             }else if (score >= 80){
                 drawLvlOnScreen(4)
                 difficulty = 110
+                changeColor(4)
             }else if (score >= 60){
                 drawLvlOnScreen(3)
                 difficulty = 90
+                changeColor(3)
             }else if (score >=40){
                 drawLvlOnScreen(2)
                 difficulty = 60
+                changeColor(2)
             }else if (score >= 20){
                 drawLvlOnScreen(1)
                 difficulty = 30
+                changeColor(1)
             }else{
                 drawLvlOnScreen(0)
                 difficulty = 0
+                changeColor(0)
             }
         }else if (FPStoCheck < 100){
             if (score >= 120){
                 drawLvlOnScreen(6)
                 difficulty = 95
+                changeColor(6)
             }else if (score >= 100){
                 difficulty = 85
                 drawLvlOnScreen(5)
+                changeColor(5)
             }else if (score >= 80){
                 difficulty = 70
                 drawLvlOnScreen(4)
+                changeColor(4)
             }else if (score >= 60){
                 difficulty = 45
                 drawLvlOnScreen(3)
+                changeColor(3)
             }else if (score >=40){
                 difficulty = 30
                 drawLvlOnScreen(2)
+                changeColor(2)
             }else if (score >= 20){
                 difficulty = 20
                 drawLvlOnScreen(1)
+                changeColor(1)
             }else{
                 difficulty = 0
                 drawLvlOnScreen(0)
+                changeColor(0)
             }
         }          
     }
 
+    // CHANGE COLOR OF VIRUS WHEN LVL UP 
+    const changeColor = (lvl) =>{
+        switch(lvl) {
+            case 6:
+                arrayOfVirus.forEach((virus)=>{
+                    virus.virusImg.src = './images/Virus/blackVIRUS6.png'
+                    virus.virusDeathImage.src = './images/Virus/blackVIRUSdead6.png'
+                })
+                break
+            case 5:
+                arrayOfVirus.forEach((virus)=>{
+                    virus.virusImg.src = './images/Virus/purpleVIRUS5.png'
+                    virus.virusDeathImage.src = './images/Virus/purpleVIRUSdead5.png'
+                })
+                break
+            case 4:
+                arrayOfVirus.forEach((virus)=>{
+                    virus.virusImg.src = './images/Virus/pinkVIRUS4.png'
+                    virus.virusDeathImage.src = './images/Virus/pinkVIRUSdead4.png'
+                })
+                break
+            case 3:
+                arrayOfVirus.forEach((virus)=>{
+                    virus.virusImg.src = './images/Virus/redVIRUS3.png'
+                    virus.virusDeathImage.src = './images/Virus/redVIRUSdead3.png'
+                })
+                break
+            case 2:
+                arrayOfVirus.forEach((virus)=>{
+                    virus.virusImg.src = './images/Virus/orangeVIRUS2.png'
+                    virus.virusDeathImage.src = './images/Virus/orangeVIRUSdead2.png'
+                })
+                break
+            case 1:
+                arrayOfVirus.forEach((virus)=>{
+                    virus.virusImg.src = './images/Virus/yellowVIRUS1.png'
+                    virus.virusDeathImage.src = './images/Virus/yellowVIRUSdead1.png'
+                })
+                break
+            default:
+                arrayOfVirus.forEach((virus)=>{
+                    virus.virusImg.src = './images/Virus/greenVIRUS.png'
+                    virus.virusDeathImage.src = './images/Virus/greenVIRUSdead.png'
+                })
+          }
+    }
+
+    // LVL DISPLAY ON SCREEN
     const drawLvlOnScreen = (num) => {
         if(num === 6){
             ctx.fillStyle = 'rgba(79, 79, 79, 0.40)'
@@ -335,6 +399,19 @@ window.onload = () => {
     restartButton.addEventListener('click', () => {
         location.reload()
     })
+
+    // CURSOR IMAGE
+    window.addEventListener('mousemove', (event)=>{
+        mouseCursor.style.top = event.pageY + 'px';
+        mouseCursor.style.left = event.pageX + 'px';
+    })
+    // window.addEventListener('mousedown',() => {
+    //     mouseCursor.src ='images/hammer2.png';
+    // })
+        
+    // window.addEventListener('mouseup',() => {
+    //     mouseCursor.src ='images/hammer.png';
+    // })
 
     // TO CHECK THE REFRESH RATE OF THE MONITOR LIVE (Implementation of a post on the internet by Carlos Delgado)
     function getScreenRefreshRate(callback, runIndefinitely){
