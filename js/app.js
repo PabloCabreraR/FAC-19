@@ -65,6 +65,7 @@ window.onload = () => {
     let FPStoCheck // INITIALIZE A VARIABLE TO SET THE REFRESH RATE IN.
 
     const arrayOfVirus = [] // ARRAY WHERE I PUSH MY VIRUS ONCE CREATED AND WHERE I GET THEM FROM TO DRAW THEM
+    const arryaOfDeadVirus = []
 
     let virusCreationCounter = 0 // ITS A COUNTER FOR SPEED OF VIRUS CREATION
     let difficulty = 0 // A COUNTER TO ADD DIFFICULTY AS YOU PROGRESS THROUGH THE GAME
@@ -150,6 +151,12 @@ window.onload = () => {
         })
     }
 
+    const drawDeadVirus = () =>{
+        arryaOfDeadVirus.forEach((virus)=>{
+            virus.drawDead()       
+        })
+    }
+
     // CANVAS CLICK EVENT LISTENER
     canvas.onclick = (event) => {
         let canvasX = event.pageX - canvasLeft
@@ -160,6 +167,7 @@ window.onload = () => {
             let virusXandWidth = virus.x + virus.size
             // CHECK FOR VIRUS ON POSITION CLICKED
             if (canvasY > virus.y && canvasY < virusYandHeight && canvasX > virus.x && canvasX < virusXandWidth){
+                arryaOfDeadVirus.push(virus)
                 arrayOfVirus.splice(index, 1)
                 splashAudio.play()
                 score++
@@ -270,10 +278,10 @@ window.onload = () => {
     // GAME LOOP
     const updateCanvas = () => {
         if (!gameOver){
-            console.log(FPStoCheck)
             clearCanvas()
             drawBackground()
             createVirus()
+            drawDeadVirus()
             drawVirus()
             checkNumberOfVirusOnScreen()
             renderScore()
@@ -372,5 +380,5 @@ window.onload = () => {
     }
     getScreenRefreshRate((FPS)=>{
         FPStoCheck = FPS
-    }, true)
+    })
 }
