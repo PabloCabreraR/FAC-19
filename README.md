@@ -1,4 +1,5 @@
-# F.A.C-19 ![SyringeIMG](./images/syringeCLICKED.png)
+# F.A.C-19 
+![SyringeIMG](./images/syringeCLICKED.png)
 FAC is my first completed deployed proyect. Its been created for the Ironhack's Web Develpment bootcamp in less than one week so much can still be improved. I've used Canvas for the game, Vainilla JS for DOM manipulation, Bootstrap for the buttons and some CSS3 for the styling. The theme of the game is about COVID. The acronym comes from Fight Against Covid-19.
 
 FAC-19 is a shotter type game where your mouse skills matters. You score for each virus you kill but as you get more points the difficulty increases (viruses appear faster). If you let too many viruses accumulate, you will lose lives until you lose all and, surpirse, *GAME OVER*. 
