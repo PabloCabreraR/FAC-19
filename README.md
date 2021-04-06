@@ -5,7 +5,7 @@ FAC-19 is a shotter type game where your mouse skills matters. You score for eac
 It is not possible to win in this game, but you can try to beat your own record or compete with someone to see who scores the most points. Go try it and have fun!
 
 
-## Try it yourself!
+## Try it yourself! :computer:
 Netlify URL :  https://fac-19.netlify.app/
 
 ![Game Preview](./images/GAME-PREVIEW.png)
