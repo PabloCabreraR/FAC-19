@@ -366,6 +366,7 @@ window.onload = () => {
             gameOverScreenScore.innerText = threeDigitsScore(score)
             restartButton.disabled = true
             backgroundAudio.pause()
+            splashAudio.muted = true
             gameOverAudio.play()
             setTimeout (()=>{
                 restartButton.disabled = false
