@@ -219,23 +219,23 @@ window.onload = () => {
                 changeColor(6)
             }else if (score >= 100){
                 drawLvlOnScreen(5)
-                difficulty = 140
+                difficulty = 125
                 changeColor(5)
             }else if (score >= 80){
                 drawLvlOnScreen(4)
-                difficulty = 110
+                difficulty = 100
                 changeColor(4)
             }else if (score >= 60){
                 drawLvlOnScreen(3)
-                difficulty = 90
+                difficulty = 75
                 changeColor(3)
             }else if (score >=40){
                 drawLvlOnScreen(2)
-                difficulty = 60
+                difficulty = 50
                 changeColor(2)
             }else if (score >= 20){
                 drawLvlOnScreen(1)
-                difficulty = 30
+                difficulty = 25
                 changeColor(1)
             }else{
                 drawLvlOnScreen(0)
@@ -365,6 +365,7 @@ window.onload = () => {
             gameOverScreen.classList.remove('display-none')
             gameOverScreenScore.innerText = threeDigitsScore(score)
             restartButton.disabled = true
+            soundButton.disabled = true
             backgroundAudio.pause()
             splashAudio.muted = true
             gameOverAudio.play()
@@ -422,8 +423,8 @@ window.onload = () => {
 
     // CHANGING CURSOR IMAGE ONCLICK AND PLAYING CLICK SOUND
     window.addEventListener('mousedown',() => {
-        splashAudio.play()
         mouseCursor.src ='images/syringeCLICKED.png';
+        splashAudio.play()
     }) 
     window.addEventListener('mouseup',() => {
         mouseCursor.src ='images/syringeUNCLICKED.png';
