@@ -118,7 +118,11 @@ canvas {
     font-weight: bold;
 }
 
-
+#done-by a {
+    text-decoration: none;
+    color: inherit;
+    cursor: none;
+}
 
 .display-none {
      display: none;
