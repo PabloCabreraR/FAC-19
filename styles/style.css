@@ -83,6 +83,18 @@ h1 {
     padding-bottom: 0.5vh;
 }
 
+#instructions {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#instructions * {
+    max-width: 33%;
+    padding: 5px;
+    margin: 50px 0px;
+}
+
 canvas {
     border: 8px solid black;
 }

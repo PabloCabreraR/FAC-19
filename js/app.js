@@ -97,6 +97,7 @@ window.onload = () => {
     const startGame = () => {
         intro.classList.add('display-none')
         instructionsDiv.classList.add("display-none")
+        splashAudio.muted = false
         soundButton.disabled = false
         loadAudios()
         backgroundAudio.play()      
@@ -116,7 +117,7 @@ window.onload = () => {
         lifeLostAudio.volume = 0.1
 
         lifeUpAudio = new Audio('./sounds/LifeUp.mp3')
-        lifeUpAudio.volume = 0.1
+        lifeUpAudio.volume = 0.5
     }
 
     // CLEAR WHOLE CANVAS
@@ -206,13 +207,12 @@ window.onload = () => {
         lifeUpAudio.play()
         lifes++
         lifesArray[lifes].classList.remove('display-none')
-        
     }
 
     // EVERY 50 POINTS YOU CAN GET A LIFE BACK
     const checkScoreWinALife = () => {
         if (cooldownForLifeUp == 500){
-            if(score>0 && score%50===0 && lifes < 5){
+            if((score > 0) && (score % 50 === 0) && (lifes < 5)){
                 winLife()
                 cooldownForLifeUp = 0
             }
@@ -414,6 +414,7 @@ window.onload = () => {
             backgroundAudio.muted = false
             splashAudio.muted = false
             lifeLostAudio.muted = false
+            lifeUpAudio.muted = false
             gameOverAudio.muted = false
             soundOFF.classList.add("display-none")
             soundON.classList.remove("display-none")
@@ -421,6 +422,7 @@ window.onload = () => {
             backgroundAudio.muted = true
             splashAudio.muted = true
             lifeLostAudio.muted = true
+            lifeUpAudio.muted = true
             gameOverAudio.muted = true
             soundON.classList.add("display-none")
             soundOFF.classList.remove("display-none")
