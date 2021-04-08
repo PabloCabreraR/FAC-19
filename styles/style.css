@@ -124,6 +124,11 @@ canvas {
     cursor: none;
 }
 
+.github-logo {
+    height: 40px;
+    padding-bottom: 10px;
+}
+
 .display-none {
      display: none;
 }
@@ -136,7 +141,7 @@ canvas {
 
 .on-top-screen {
     z-index: 2;
-    margin-top: 15.5vh;
+    margin-top: 14vh;
     background-color: #9e9e9ec5;
     height: 500px;
     position: absolute;

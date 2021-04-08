@@ -54,18 +54,21 @@ window.onload = () => {
     const lifesArray = [...lifesIMGs] // COPY OF ALL IMG ELEMENTES OF LIFES.
 
     let gameOver = false // GAME OVER CHECK VARIABLE.
-    let gameLoop = true
-    let lifes = 5 // NUMBER OF LIFES YOU HAVE BEFORE GAMEOVER/
-    let LVL = 0 // TO CHANGE VIRUS COLORS
+    let gameLoop = true // GAME LOOP VARIABLE TO STOP THE ANIMATION.
+    let lifes = 5 // NUMBER OF LIFES YOU HAVE BEFORE GAMEOVER.
  
     let backgroundAudio // INITIALIZE BACKGROUND AUDIO.
-    let splashAudio // INITIALIZE SPLASH AUDIO.
+    let splashAudio = new Audio('./sounds/virusDeath.mp3') // SPlASH AUDIO ON CLCIK EVENT
+    splashAudio.volume = 0.1 // VOLUME OF THE CLICK EVENT
+    splashAudio.muted = true // WHEN GAME LOADS EVERYTHING IS MUTED
     let gameOverAudio // INITIALIZE GAME OVER AUDIO.
     let lifeLostAudio // INITIALIZE LIFE LOST AUDIO.
+    let lifeUpAudio // INITIALIZE LIFE GAIN AUDIO.
 
     let score = 0 // SCORE VARIABLE FOR DISPLAY AND COUNT.
     let counterOfVirusOnScreen = 0  // COUNTER OF VIRUS ON SCREEN SO THAT IF ITS >= TO 5 IT STARTS LOOSING LIFES.
-    let cooldownForLifeOff = 250 // ITS A COOLDOWN TIME(COUNTER) SO IT DOESNT LOOSE ALL THE LIFES AT ONCE.
+    let cooldownForLifeOff = 250 // ITS A COOLDOWN TIME(COUNTER) SO YOU DONT LOOSE ALL THE LIFES AT ONCE.
+    let cooldownForLifeUp = 500 // ITS A COOLDOWN TIME(COUNTER) SO YOU CAN REFILL ALL YOUR LIFES AT ONCE LOOSE ALL THE LIFES AT ONCE.
     let FPStoCheck // INITIALIZE A VARIABLE TO SET THE REFRESH RATE IN.
 
     const arrayOfVirus = [] // ARRAY WHERE I PUSH MY VIRUS ONCE CREATED AND WHERE I GET THEM FROM TO DRAW THEM
@@ -106,14 +109,14 @@ window.onload = () => {
         backgroundAudio.loop
         backgroundAudio.volume = 0.1
 
-        splashAudio = new Audio('./sounds/virusDeath.mp3')
-        splashAudio.volume = 0.1
-
         gameOverAudio = new Audio('./sounds/gameover.mp3')
         gameOverAudio.volume = 0.5
 
         lifeLostAudio = new Audio('./sounds/lifeLost.mp3')
         lifeLostAudio.volume = 0.1
+
+        lifeUpAudio = new Audio('./sounds/LifeUp.mp3')
+        lifeUpAudio.volume = 0.1
     }
 
     // CLEAR WHOLE CANVAS
@@ -185,11 +188,36 @@ window.onload = () => {
         cooldownForLifeOff++
         if (cooldownForLifeOff >= 250){
             if (counterOfVirusOnScreen >= 5){
-            lifesArray[lifes].classList.add('display-none')
-            lifeLostAudio.play()
-            lifes--
-            cooldownForLifeOff = 0
+                loseLife()
+                cooldownForLifeOff = 0
             }
+        }
+    }
+
+    // EVERY TIME YOU LOSE A LIFE I CALL THIS FUNCTION
+    const loseLife = () => {
+        lifesArray[lifes].classList.add('display-none')
+        lifeLostAudio.play()
+        lifes--
+    }
+
+    // EVERY TIME YOU WIN A LIFE I CALL THIS FUNCTION
+    const winLife = () => {
+        lifeUpAudio.play()
+        lifes++
+        lifesArray[lifes].classList.remove('display-none')
+        
+    }
+
+    // EVERY 50 POINTS YOU CAN GET A LIFE BACK
+    const checkScoreWinALife = () => {
+        if (cooldownForLifeUp == 500){
+            if(score>0 && score%50===0 && lifes < 5){
+                winLife()
+                cooldownForLifeUp = 0
+            }
+        }else{
+            cooldownForLifeUp++
         }
     }
 
@@ -359,6 +387,7 @@ window.onload = () => {
             checkNumberOfVirusOnScreen()
             renderScore()
             checkScoreLevelUp()
+            checkScoreWinALife()
             checkLifes()
         }else{
             gameLoop = false
@@ -476,11 +505,3 @@ window.onload = () => {
         FPStoCheck = FPS
     })
 }
-
-window.addEventListener('mousedown',() => {
-    splashAudio.play()
-    mouseCursor.src ='images/syringeCLICKED.png';
-}) 
-window.addEventListener('mouseup',() => {
-    mouseCursor.src ='images/syringeUNCLICKED.png';
-})
